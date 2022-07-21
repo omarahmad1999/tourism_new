@@ -23,74 +23,75 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kScaffoldColour,
-      body: ModalProgressHUD(
-        inAsyncCall: showSpinner,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Flexible(
-              child: Hero(
-                tag: 'wanderer',
-                child: Image.asset(
-                  'assets/wanderer.png',
-                  height: 220,
-                  width: 110,
-                  color: Colors.black,
-                ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Flexible(
+            child: Hero(
+              tag: 'wanderer',
+              child: Image.asset(
+                'assets/wanderer.png',
+                height: 220,
+                width: 110,
+                color: Colors.black,
               ),
             ),
-            TextField(
-              textAlign: TextAlign.center,
-              decoration: kTextFieldInputDecoration.copyWith(
-                  hintText: 'Enter your email'),
-              onChanged: (newText) {
-                email = newText;
-              },
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            TextField(
-              textAlign: TextAlign.center,
-              obscureText: true,
-              decoration: kTextFieldInputDecoration.copyWith(
-                  hintText: 'Enter your password'),
-              onChanged: (newText) {
-                password = newText;
-              },
-            ),
-            SizedBox(
-              height: 8,
-            ),
-            RoundedButton(
-                colour: kLightCoralColour,
-                title: 'Login',
-                onPressed: () async {
-                  setState(() {
-                    showSpinner = true;
-                  });
-                  try {
+          ),
+          TextField(
+            textAlign: TextAlign.center,
+            decoration: kTextFieldInputDecoration.copyWith(
+                hintText: 'Enter your email'),
+            onChanged: (newText) {
+              email = newText;
+            },
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          TextField(
+            textAlign: TextAlign.center,
+            obscureText: true,
+            decoration: kTextFieldInputDecoration.copyWith(
+                hintText: 'Enter your password'),
+            onChanged: (newText) {
+              password = newText;
+            },
+          ),
+          SizedBox(
+            height: 8,
+          ),
+          RoundedButton(
+              colour: kLightCoralColour,
+              title: 'Login',
+              onPressed: () async {
+                setState(() {
+                  showSpinner = true;
+                });
+                try {
+                  if(email != null && password !=null ) {
                     UserCredential loggedinUser =
                     await _auth.signInWithEmailAndPassword(
-                        email: email, password: password);
+                        email: email!, password: password!);
+
                     if (loggedinUser != null) {
-                      Navigator.pushNamed(context, DetectionScreen.id);
+                      // Navigator.pushNamed(context, DetectionScreen.id);
                     }
-                  } on FirebaseAuthException catch (e) {
-                    error.errorMessage(context, e.message);
-                    if (e.code == 'user-not-found') {
-                      print('No user found for that email.');
-                    } else if (e.code == 'wrong-password') {
-                      print('Wrong password provided for that user.');
-                    }
-                  } finally {
-                    setState(() {
-                      showSpinner = false;
-                    });
                   }
-                })
-          ],
-        ),
+                } on FirebaseAuthException catch (e) {
+
+                  error.errorMessage(context, e.message!);
+                  if (e.code == 'user-not-found') {
+                    print('No user found for that email.');
+                  } else if (e.code == 'wrong-password') {
+                    print('Wrong password provided for that user.');
+                  }
+                } finally {
+                  setState(() {
+                    showSpinner = false;
+                  });
+                }
+              })
+        ],
       ),
     );
   }

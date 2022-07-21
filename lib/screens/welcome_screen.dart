@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tourism_new/widgets/rounded_button.dart';
 import 'package:tourism_new/constants.dart';
+import 'package:tourism_new/screens/login_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
   static final String id = 'welcome_screen';
@@ -36,7 +37,7 @@ class WelcomeScreen extends StatelessWidget {
                 colour: kLightCoralColour,
                 title: 'Login',
                 onPressed: () {
-                  // Navigator.pushNamed(context, LoginScreen.id);
+                   Navigator.pushNamed(context, LoginScreen.id);
                 },
               ),
               SizedBox(
