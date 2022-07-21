@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-// import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:tourism_new/constants.dart';
 import 'package:tourism_new/widgets/rounded_button.dart';
 // import 'detection_screen.dart';
@@ -14,8 +13,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  String? email;
-  String? password;
+  final emailController= TextEditingController();
+  final passwordController=TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   bool showSpinner = false;
 
@@ -38,24 +37,24 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
           TextField(
+            controller: emailController,
+            obscureText: false,
             textAlign: TextAlign.center,
+            cursorColor: Colors.white ,
             decoration: kTextFieldInputDecoration.copyWith(
-                hintText: 'Enter your email'),
-            onChanged: (newText) {
-              email = newText;
-            },
+                hintText: 'Email'),
+
           ),
           SizedBox(
             height: 10,
           ),
           TextField(
+            controller: passwordController,
+            obscureText: false,
             textAlign: TextAlign.center,
-            obscureText: true,
+            cursorColor: Colors.white ,
             decoration: kTextFieldInputDecoration.copyWith(
-                hintText: 'Enter your password'),
-            onChanged: (newText) {
-              password = newText;
-            },
+                hintText: 'Password'),
           ),
           SizedBox(
             height: 8,
@@ -67,32 +66,36 @@ class _LoginScreenState extends State<LoginScreen> {
                 setState(() {
                   showSpinner = true;
                 });
-                try {
-                  if(email != null && password !=null ) {
-                    UserCredential loggedinUser =
-                    await _auth.signInWithEmailAndPassword(
-                        email: email!, password: password!);
-
-                    if (loggedinUser != null) {
-                      // Navigator.pushNamed(context, DetectionScreen.id);
-                    }
-                  }
-                } on FirebaseAuthException catch (e) {
-
-                  error.errorMessage(context, e.message!);
-                  if (e.code == 'user-not-found') {
-                    print('No user found for that email.');
-                  } else if (e.code == 'wrong-password') {
-                    print('Wrong password provided for that user.');
-                  }
-                } finally {
-                  setState(() {
-                    showSpinner = false;
-                  });
+                signIN();
                 }
-              })
+              )
         ],
       ),
     );
   }
+  Future signIN( )async{
+    try {
+
+      UserCredential loggedinUser =
+      await _auth.signInWithEmailAndPassword(
+          email: emailController.text.trim(), password: passwordController.text.trim());
+
+        print('succesfully logged in');
+
+    } on FirebaseAuthException catch (e) {
+
+      error.errorMessage(context, e.message!);
+      // if (e.code == 'user-not-found') {
+      //   print('No user found for that email.');
+      // } else if (e.code == 'wrong-password') {
+      //   print('Wrong password provided for that user.');
+      // }
+    } finally {
+      setState(() {
+        showSpinner = false;
+      });
+    }
+  }
 }
+
+

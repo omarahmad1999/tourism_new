@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tourism_new/screens/registration_screen.dart';
 import 'package:tourism_new/screens/welcome_screen.dart';
 import 'package:tourism_new/screens/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -24,8 +25,10 @@ class MyApp extends StatelessWidget {
       initialRoute: WelcomeScreen.id,
         routes: {
           WelcomeScreen.id: (context) => WelcomeScreen(),
-          LoginScreen.id: (context) => LoginScreen()
+          LoginScreen.id: (context) => LoginScreen(),
+          RegistrationScreen.id:(context) => RegistrationScreen()
         }
+
 
     );
   }
