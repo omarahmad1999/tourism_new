@@ -1,22 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:tourism_new/constants.dart';
 import 'package:tourism_new/widgets/rounded_button.dart';
-// import 'detection_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:tourism_new/widgets/error_message.dart' as error;
+import 'package:flutter/gestures.dart';
 
 class RegistrationScreen extends StatefulWidget {
   static final String id = 'registration_screen';
+  final VoidCallback onClickedSignIn;
 
+  const RegistrationScreen({
+    Key? key,
+    required this.onClickedSignIn,
+
+  }): super(key:key);
   @override
   _RegistrationScreenState createState() => _RegistrationScreenState();
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
+
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  String? email;
-  String? password;
-  bool showSpinner = false;
+  final emailController= TextEditingController();
+  final passwordController=TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,23 +43,24 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               ),
             ),
             TextField(
+              controller: emailController,
+              obscureText: false,
               textAlign: TextAlign.center,
+              cursorColor: Colors.white ,
               decoration: kTextFieldInputDecoration.copyWith(
-                  hintText: 'Enter your email'),
-              onChanged: (newText) {
-                email = newText;
-              },
+                  hintText: 'Email'),
+
             ),
             SizedBox(
               height: 8,
             ),
             TextField(
+              controller: passwordController,
+              obscureText: false,
               textAlign: TextAlign.center,
+              cursorColor: Colors.white ,
               decoration: kTextFieldInputDecoration.copyWith(
-                  hintText: 'Enter your password'),
-              onChanged: (newText) {
-                password = newText;
-              },
+                  hintText: 'Password'),
             ),
             SizedBox(
               height: 8,
@@ -61,16 +69,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 colour: kDarkCoralColour,
                 title: 'Register',
                 onPressed: () async {
-                  setState(() {
-                    showSpinner = true;
-                  });
+
                   try {
                     final userCredential =
                     await _auth.createUserWithEmailAndPassword(
-                        email: email!, password: password!);
-                    if (userCredential != null) {
-                      // Navigator.pushNamed(context, DetectionScreen.id);
-                    }
+                        email: emailController.text.trim(), password: passwordController.text.trim());
+
                   } on FirebaseAuthException catch (e) {
                     error.errorMessage(context, e.message!);
                     if (e.code == 'weak-password') {
@@ -80,12 +84,17 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     }
                   } catch (e) {
                     print(e);
-                  } finally {
-                    setState(() {
-                      showSpinner = false;
-                    });
                   }
-                })
+                  }
+                ),
+            SizedBox(
+              height: 16,
+            ),
+            RichText(text: TextSpan(style: TextStyle(color: Colors.black,fontSize: 16),
+                text: 'Already have an account?  ',
+                children: [TextSpan(recognizer: TapGestureRecognizer()..onTap = widget.onClickedSignIn,
+                    text: 'Sign up',style: TextStyle(fontWeight: FontWeight.bold, decoration: TextDecoration.underline))
+                ]))
           ],
         ),
 

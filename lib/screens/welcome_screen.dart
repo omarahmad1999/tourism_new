@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tourism_new/widgets/rounded_button.dart';
 import 'package:tourism_new/constants.dart';
 import 'package:tourism_new/screens/login_screen.dart';
+import 'package:tourism_new/screens/auth_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -12,12 +13,18 @@ class WelcomeScreen extends StatelessWidget {
       child: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot){
-          print(snapshot.data);
-          if(snapshot.hasData){
-            return homePage();
+          if(snapshot.connectionState== ConnectionState.waiting){
+            return Center(child: CircularProgressIndicator()); 
+          }
+
+          else if (snapshot.hasError){
+            return Center(child: Text('Something is wrong'));
+          }
+          else if(snapshot.hasData){
+            return profile();
           }
           else{
-            return LoginScreen();
+            return authScreen();
           }
         }
       )
@@ -26,7 +33,7 @@ class WelcomeScreen extends StatelessWidget {
 }
 
 
-class homePage extends StatelessWidget {
+class profile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
