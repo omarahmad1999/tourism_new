@@ -35,10 +35,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               child: Hero(
                 tag: 'wanderer',
                 child: Image.asset(
-                  'assets/wanderer.png',
-                  height: 220,
-                  width: 110,
-                  color: Colors.black,
+                  'assets/sphinx.png',
+                  height: 320,
+                  width: 320,
                 ),
               ),
             ),
@@ -52,7 +51,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
             ),
             SizedBox(
-              height: 8,
+              height: 10,
             ),
             TextField(
               controller: passwordController,
@@ -69,23 +68,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 colour: kDarkCoralColour,
                 title: 'Register',
                 onPressed: () async {
-
-                  try {
-                    final userCredential =
-                    await _auth.createUserWithEmailAndPassword(
-                        email: emailController.text.trim(), password: passwordController.text.trim());
-
-                  } on FirebaseAuthException catch (e) {
-                    error.errorMessage(context, e.message!);
-                    if (e.code == 'weak-password') {
-                      print('The password provided is too weak.');
-                    } else if (e.code == 'email-already-in-use') {
-                      print('The account already exists for that email.');
-                    }
-                  } catch (e) {
-                    print(e);
-                  }
-                  }
+                  signUp();
+                }
                 ),
             SizedBox(
               height: 16,
@@ -100,4 +84,23 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
     );
   }
-}
+
+  Future signUp()async{
+    try {
+    final userCredential =
+    await _auth.createUserWithEmailAndPassword(
+    email: emailController.text.trim(), password: passwordController.text.trim());
+
+    } on FirebaseAuthException catch (e) {
+    error.errorMessage(context, e.message!);
+    if (e.code == 'weak-password') {
+    print('The password provided is too weak.');
+    } else if (e.code == 'email-already-in-use') {
+    print('The account already exists for that email.');
+    }
+    } catch (e) {
+    print(e);
+    }
+    }
+    }
+

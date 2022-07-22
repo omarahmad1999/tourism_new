@@ -35,7 +35,6 @@ dependencies:
   firebase_core: ^1.19.2
   firebase_auth: ^3.4.2
   cloud_firestore: ^3.3.0
-  modal_progress_hud_nsn: ^0.2.1
   flutter_swiper: ^1.1.6
 dev_dependencies:
   flutter_test:
@@ -48,4 +47,5 @@ dev_dependencies:
 flutter:
 
   uses-material-design: true
-
+  assets:
+    - assets/

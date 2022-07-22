@@ -23,8 +23,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final emailController= TextEditingController();
   final passwordController=TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  bool showSpinner = false;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,10 +34,10 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Hero(
               tag: 'wanderer',
               child: Image.asset(
-                'assets/wanderer.png',
-                height: 220,
-                width: 110,
-                color: Colors.black,
+                'assets/sphinx.png',
+                height: 320,
+                width: 320,
+
               ),
             ),
           ),
@@ -70,9 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
               colour: kLightCoralColour,
               title: 'Login',
               onPressed: () async {
-                setState(() {
-                  showSpinner = true;
-                });
+
                 signIN();
                 }
               ),
@@ -89,7 +85,8 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
   Future signIN( )async{
-    showDialog(context: context,barrierDismissible: false  ,builder: (context)=> Center(child :CircularProgressIndicator())    );
+    // showDialog(context: context,barrierDismissible: false  ,builder: (context)=> Center(child :CircularProgressIndicator())    );
+
     try {
 
       UserCredential loggedinUser =
@@ -102,8 +99,9 @@ class _LoginScreenState extends State<LoginScreen> {
       error.errorMessage(context, e.message!);
       // }
     }
-    Navigator.pop(context);
-
+    finally {
+      // Navigator.pop(context);
+    }
    // navigatorKey.currentState!.popUntil((route) => route.isFirst);
 
   }
