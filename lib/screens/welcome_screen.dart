@@ -3,10 +3,19 @@ import 'package:tourism_new/widgets/rounded_button.dart';
 import 'package:tourism_new/constants.dart';
 import 'package:tourism_new/screens/login_screen.dart';
 import 'package:tourism_new/screens/auth_screen.dart';
+import 'package:tourism_new/screens/detection_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class WelcomeScreen extends StatelessWidget {
+  void printer(){
+    String? name;
+
+     print(name);
+
+  }
   static final String id = 'welcome_screen';
+
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -21,10 +30,10 @@ class WelcomeScreen extends StatelessWidget {
             return Center(child: Text('Something is wrong'));
           }
           else if(snapshot.hasData){
-            return profile();
+            return DetectionScreen();
           }
           else{
-            return authScreen();
+            return AuthScreen();
           }
         }
       )

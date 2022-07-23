@@ -1,9 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:tourism_new/constants.dart';
-import 'package:tourism_new/main.dart';
 import 'package:tourism_new/widgets/rounded_button.dart';
-// import 'detection_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:tourism_new/widgets/error_message.dart' as error;
 class LoginScreen extends StatefulWidget {
