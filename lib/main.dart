@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tourism_new/screens/registration_screen.dart';
-import 'package:tourism_new/screens/welcome_screen.dart';
+import 'package:tourism_new/screens/app_base.dart';
 import 'package:tourism_new/screens/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -24,9 +24,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       navigatorKey: navigatorKey ,
-      initialRoute: WelcomeScreen.id,
+      initialRoute: AppBase.id,
         routes: {
-          WelcomeScreen.id: (context) => WelcomeScreen(),
+          AppBase.id: (context) => AppBase(),
 
         }
 
