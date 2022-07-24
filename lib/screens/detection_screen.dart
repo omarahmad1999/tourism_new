@@ -6,11 +6,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:tourism_new/constants.dart';
 import 'package:tourism_new/services/detection_service.dart';
 import 'package:tourism_new/widgets/rounded_button.dart';
-import 'package:tourism_new/landmark_database.dart';
 import 'landmark_information_screen.dart';
 import 'package:tourism_new/widgets/error_message.dart' as error;
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:tourism_new/services/data_upload.dart';
 class DetectionScreen extends StatefulWidget {
   static final String id = 'detection_screen';
 
@@ -86,21 +84,6 @@ class _DetectionScreenState extends State<DetectionScreen> {
     }
     return Scaffold(
       backgroundColor: kScaffoldColour,
-      appBar: AppBar(
-        leading: null,
-        actions: <Widget>[
-          IconButton(
-              icon: Icon(Icons.close),
-              onPressed: () {
-                _auth.signOut();
-                Navigator.pop(context);
-              }),
-        ],
-        backgroundColor: kAppBarColour,
-        title: Text(
-          'Landmark Detection',
-        ),
-      ),
       body: Container(
         child: Column(
           children: [

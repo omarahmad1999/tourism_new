@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tourism_new/screens/detection_screen.dart';
-
+import 'package:tourism_new/screens/profile_screen.dart';
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
 
@@ -28,7 +28,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         selectedItemColor: Colors.amber[800],
         onTap: _onItemTapped,
       ),
-      body: _selectedIndex==1?
+      body: _selectedIndex==1?  DetectionScreen():ProfileScreen()
       ,
     );
   }
