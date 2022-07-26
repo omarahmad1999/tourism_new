@@ -4,7 +4,7 @@ import 'package:tourism_new/widgets/rounded_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:tourism_new/widgets/error_message.dart' as error;
 import 'package:flutter/gestures.dart';
-
+import 'package:tourism_new/widgets/input_text_field.dart';
 class RegistrationScreen extends StatefulWidget {
   static final String id = 'registration_screen';
   final VoidCallback onClickedSignIn;
@@ -41,26 +41,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 ),
               ),
             ),
-            TextField(
-              controller: emailController,
-              obscureText: false,
-              textAlign: TextAlign.center,
-              cursorColor: Colors.white ,
-              decoration: kTextFieldInputDecoration.copyWith(
-                  hintText: 'Email'),
-
-            ),
+            InputTextField(controller: emailController, hint: 'email'),
             SizedBox(
               height: 10,
             ),
-            TextField(
-              controller: passwordController,
-              obscureText: false,
-              textAlign: TextAlign.center,
-              cursorColor: Colors.white ,
-              decoration: kTextFieldInputDecoration.copyWith(
-                  hintText: 'Password'),
-            ),
+            InputTextField(controller: passwordController,hint: 'password'),
             SizedBox(
               height: 8,
             ),
@@ -103,4 +88,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     }
     }
     }
+
+
 

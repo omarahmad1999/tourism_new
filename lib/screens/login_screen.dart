@@ -4,6 +4,7 @@ import 'package:tourism_new/constants.dart';
 import 'package:tourism_new/widgets/rounded_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:tourism_new/widgets/error_message.dart' as error;
+import 'package:tourism_new/widgets/input_text_field.dart';
 class LoginScreen extends StatefulWidget {
   static final String id = 'login_screen';
   final VoidCallback onClickedSignUp;
@@ -39,26 +40,11 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
           ),
-          TextField(
-            controller: emailController,
-            obscureText: false,
-            textAlign: TextAlign.center,
-            cursorColor: Colors.white ,
-            decoration: kTextFieldInputDecoration.copyWith(
-                hintText: 'Email'),
-
-          ),
+          InputTextField(controller: emailController, hint: 'email'),
           SizedBox(
             height: 10,
           ),
-          TextField(
-            controller: passwordController,
-            obscureText: false,
-            textAlign: TextAlign.center,
-            cursorColor: Colors.white ,
-            decoration: kTextFieldInputDecoration.copyWith(
-                hintText: 'Password'),
-          ),
+          InputTextField(controller: passwordController,hint: 'password'),
           SizedBox(
             height: 8,
           ),
@@ -66,7 +52,6 @@ class _LoginScreenState extends State<LoginScreen> {
               colour: kLightCoralColour,
               title: 'Login',
               onPressed: () async {
-
                 signIN();
                 }
               ),
