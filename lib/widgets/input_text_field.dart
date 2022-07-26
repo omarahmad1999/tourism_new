@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:tourism_new/constants.dart';
-
+import 'package:email_validator/email_validator.dart';
 
 class InputTextField extends StatelessWidget {
   const InputTextField({
     Key? key,
     required this.controller,
-    required this.hint
+    required this.hint,
+
   }) : super(key: key);
 
   final TextEditingController controller;
@@ -14,13 +15,14 @@ class InputTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       controller: controller,
       obscureText: false,
       textAlign: TextAlign.center,
       cursorColor: Colors.white ,
       decoration: kTextFieldInputDecoration.copyWith(
           hintText: hint),
+
     );
   }
 }

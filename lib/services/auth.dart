@@ -1,11 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:tourism_new/main.dart';
+import 'package:tourism_new/screens/registration_screen.dart';
+
 import 'package:tourism_new/widgets/error_message.dart' as error;
 import 'package:flutter/material.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
-Future signIN( BuildContext context,String email,String password )async{
+Future signIN( BuildContext context,String email,String password)async{
 
   // showDialog(context: context,barrierDismissible: false  ,builder: (context)=> Center(child :CircularProgressIndicator())    );
 
@@ -29,7 +30,9 @@ Future signIN( BuildContext context,String email,String password )async{
 }
 
 
-Future signUp(BuildContext context,String email,String password)async{
+Future signUp(BuildContext context,String email,String password,GlobalKey<FormState> formKey )async{
+  final isValid =formKey.currentState!.validate();
+  if (!isValid) return;
   try {
     final userCredential =
     await _auth.createUserWithEmailAndPassword(
