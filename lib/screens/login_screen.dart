@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:tourism_new/constants.dart';
 import 'package:tourism_new/widgets/rounded_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:tourism_new/widgets/error_message.dart' as error;
+import 'package:tourism_new/services/auth.dart';
 import 'package:tourism_new/widgets/input_text_field.dart';
 class LoginScreen extends StatefulWidget {
   static final String id = 'login_screen';
@@ -52,7 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
               colour: kLightCoralColour,
               title: 'Login',
               onPressed: () async {
-                signIN();
+                signIN(context,emailController.text.trim(),passwordController.text.trim());
                 }
               ),
           SizedBox(
@@ -67,27 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
-  Future signIN( )async{
-    // showDialog(context: context,barrierDismissible: false  ,builder: (context)=> Center(child :CircularProgressIndicator())    );
 
-    try {
-
-      UserCredential loggedinUser =
-      await _auth.signInWithEmailAndPassword(
-          email: emailController.text.trim(), password: passwordController.text.trim());
-        print('succesfully logged in');
-
-    } on FirebaseAuthException catch (e) {
-
-      error.errorMessage(context, e.message!);
-      // }
-    }
-    finally {
-      // Navigator.pop(context);
-    }
-   // navigatorKey.currentState!.popUntil((route) => route.isFirst);
-
-  }
 }
 
 

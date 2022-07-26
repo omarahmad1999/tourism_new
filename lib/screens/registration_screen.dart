@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:tourism_new/constants.dart';
 import 'package:tourism_new/widgets/rounded_button.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:tourism_new/widgets/error_message.dart' as error;
 import 'package:flutter/gestures.dart';
 import 'package:tourism_new/widgets/input_text_field.dart';
+import 'package:tourism_new/services/auth.dart';
 class RegistrationScreen extends StatefulWidget {
   static final String id = 'registration_screen';
   final VoidCallback onClickedSignIn;
@@ -20,7 +19,6 @@ class RegistrationScreen extends StatefulWidget {
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
 
-  final FirebaseAuth _auth = FirebaseAuth.instance;
   final emailController= TextEditingController();
   final passwordController=TextEditingController();
 
@@ -53,7 +51,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 colour: kDarkCoralColour,
                 title: 'Register',
                 onPressed: () async {
-                  signUp();
+                  signUp(context,emailController.text.trim(),passwordController.text.trim());
                 }
                 ),
             SizedBox(
@@ -70,23 +68,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     );
   }
 
-  Future signUp()async{
-    try {
-    final userCredential =
-    await _auth.createUserWithEmailAndPassword(
-    email: emailController.text.trim(), password: passwordController.text.trim());
 
-    } on FirebaseAuthException catch (e) {
-    error.errorMessage(context, e.message!);
-    if (e.code == 'weak-password') {
-    print('The password provided is too weak.');
-    } else if (e.code == 'email-already-in-use') {
-    print('The account already exists for that email.');
-    }
-    } catch (e) {
-    print(e);
-    }
-    }
     }
 
 
