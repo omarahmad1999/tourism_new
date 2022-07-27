@@ -1,14 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tflite/tflite.dart';
 import 'dart:io';
-import 'package:image_picker/image_picker.dart';
 import 'package:tourism_new/constants.dart';
 import 'package:tourism_new/services/detection_service.dart';
 import 'package:tourism_new/widgets/rounded_button.dart';
 import 'landmark_information_screen.dart';
 import 'package:tourism_new/widgets/error_message.dart' as error;
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:tourism_new/services/image_picker_service.dart';
 class DetectionScreen extends StatefulWidget {
   static final String id = 'detection_screen';
 
@@ -22,8 +20,6 @@ class _DetectionScreenState extends State<DetectionScreen> {
   List? _recognitions;
   bool _busy = false;
   String? _predictedLabel;
-  final _picker = ImagePicker();
-  final FirebaseAuth _auth = FirebaseAuth.instance;
   @override
   void initState() {
     // var data =   Data();
@@ -141,7 +137,14 @@ class _DetectionScreenState extends State<DetectionScreen> {
           FloatingActionButton(
             backgroundColor: Color(0xffB2EEE6),
             heroTag: 'floatButton1',
-            onPressed: getImageFromGallery,
+            onPressed: ()async{
+              _image=await getImageFromGallery();
+              if(_image!=null){
+                print(_image);
+                updateUI(_image!);
+              }
+
+            },
             child: Icon(
               Icons.photo,
               color: Colors.black,
@@ -153,7 +156,15 @@ class _DetectionScreenState extends State<DetectionScreen> {
           FloatingActionButton(
             backgroundColor: Color(0xff8AD6CC),
             heroTag: 'floatButton2',
-            onPressed: getImageFromCamera,
+            onPressed: ()
+                  async{
+                _image=await getImageFromCamera();
+                if(_image!=null){
+                  print(_image);
+                  updateUI(_image!);
+                }
+              },
+
             child: Icon(
               Icons.camera_alt,
               color: Colors.black,
@@ -164,33 +175,10 @@ class _DetectionScreenState extends State<DetectionScreen> {
     );
   }
 
-  @override
-  void dispose() {
-    Tflite.close();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   Tflite.close();
+  //   super.dispose();
+  // }
 
-  getImageFromGallery() async {
-    var pickedFile = await _picker.getImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      setState(() {
-        _image = File(pickedFile.path);
-      });
-    } else {
-      return null;
-    }
-    updateUI(_image!);
-  }
-
-  getImageFromCamera() async {
-    var pickedFile = await _picker.getImage(source: ImageSource.camera);
-    if (pickedFile != null) {
-      setState(() {
-        _image = File(pickedFile.path);
-      });
-    } else {
-      return null;
-    }
-    updateUI(_image!);
-  }
 }
