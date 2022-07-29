@@ -140,7 +140,7 @@ class _DetectionScreenState extends State<DetectionScreen> {
                                   builder: (context) =>
                                       LandmarkInformationScreen(
                                         predictedLabel:
-                                        _predictedLabel,
+                                        _predictedLabel!,
                                       )));
                         },
                         title: 'Historical Information')

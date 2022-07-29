@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:tourism_new/constants.dart';
 import 'package:card_swiper/card_swiper.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-
+import 'package:tourism_new/services/fetch_landmark_data_service.dart';
 var landmarkData;
 
 class LandmarkInformationScreen extends StatelessWidget {
-  String? predictedLabel;
+  String predictedLabel;
   static const String id = 'landmark_information_screen';
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  LandmarkInformationScreen({this.predictedLabel});
+  LandmarkInformationScreen({required this.predictedLabel});
 
   Future<List<Widget>> createInfoCards() async {
     List<Widget> containers = [];
     int counter = 1;
-    var landmarkData = await getData();
+    var landmarkData = await getLandmarkData(predictedLabel);
     for (var dataPiece in landmarkData) {
       containers.add(InfoCard(
           cardNumber: counter,
@@ -26,22 +24,7 @@ class LandmarkInformationScreen extends StatelessWidget {
     return containers;
   }
 
-  Future<List> getData() async {
-    try {
-      var information = await _firestore
-          .collection('landmark_information')
-          .where('landmark_name', isEqualTo: predictedLabel)
-          .get();
-      for (var landmark in information.docs) {
-        landmarkData = landmark.data()['landmark_data'];
-      }
-    } catch (e) {
-      print(e);
-    }finally{
-      return landmarkData;
-    }
 
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +45,7 @@ class LandmarkInformationScreen extends StatelessWidget {
                 border: Border.all(color: kLightCoralColour, width: 2),
                 borderRadius: BorderRadius.circular(10)),
             child: Text(
-              predictedLabel!.toUpperCase(),
+              predictedLabel.toUpperCase(),
               style: const TextStyle(
                   color: Colors.black,
                   fontSize: 20,
