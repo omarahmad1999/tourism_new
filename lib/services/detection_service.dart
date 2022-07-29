@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:tflite/tflite.dart';
-import 'package:tourism_new/widgets/error_message.dart' as error;
-
 class DetectionService {
   static double _threshHold = 0;
   static List? _recognitions;
   static double? _imageWidth, _imageHeight;
   static String? _predictedLabel;
   static double max = -1;
-  // static BuildContext? context;
+
   static Future<void> loadModel() async {
     String? res = await Tflite.loadModel(
         model:
@@ -85,8 +83,8 @@ class DetectionService {
       }
     }
     max = -1;
-    if(_predictedLabel==null) {
-      _predictedLabel = 'adsas';
+    if(_predictedLabel ==null) {
+      _predictedLabel = 'no_detection';
     }
     return _predictedLabel!;
   }
@@ -110,7 +108,7 @@ class DetectionService {
             ),
             child: Text(
               '${re["detectedClass"]}  ${(re["confidenceInClass"] * 100).toStringAsFixed(0)}%',
-              style: TextStyle(
+              style: const TextStyle(
                   backgroundColor: Colors.blue,
                   color: Colors.white,
                   fontSize: 15),

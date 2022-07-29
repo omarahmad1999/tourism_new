@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:tourism_new/constants.dart';
 import 'package:card_swiper/card_swiper.dart';
@@ -8,7 +7,7 @@ var landmarkData;
 
 class LandmarkInformationScreen extends StatelessWidget {
   String? predictedLabel;
-  static final String id = 'landmark_information_screen';
+  static const String id = 'landmark_information_screen';
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   LandmarkInformationScreen({this.predictedLabel});
@@ -50,21 +49,21 @@ class LandmarkInformationScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: kScaffoldColour,
       appBar: AppBar(
-        title: Text('Landmark Information'),
+        title: const Text('Landmark Information'),
         backgroundColor: kAppBarColour,
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
-            padding: EdgeInsets.all(10),
-            margin: EdgeInsets.symmetric(vertical: 10),
+            padding: const EdgeInsets.all(10),
+            margin: const EdgeInsets.symmetric(vertical: 10),
             decoration: BoxDecoration(
                 border: Border.all(color: kLightCoralColour, width: 2),
                 borderRadius: BorderRadius.circular(10)),
             child: Text(
               predictedLabel!.toUpperCase(),
-              style: TextStyle(
+              style: const TextStyle(
                   color: Colors.black,
                   fontSize: 20,
                   fontWeight: FontWeight.w500),
@@ -87,9 +86,9 @@ class LandmarkInformationScreen extends StatelessWidget {
                   itemCount: snapshot.data!.length,
                   layout: SwiperLayout.TINDER,
                   pagination:
-                  SwiperPagination(alignment: Alignment.bottomCenter),
+                  const SwiperPagination(alignment: Alignment.bottomCenter),
                 )
-                    : Center(
+                    : const Center(
                   child: CircularProgressIndicator(),
                 );
               })
@@ -104,7 +103,7 @@ class InfoCard extends StatelessWidget {
   final String? info;
   final int? cardNumber;
   InfoCard(
-      {@required this.colour, @required this.info, @required this.cardNumber});
+      {Key? key, @required this.colour, @required this.info, @required this.cardNumber}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -115,20 +114,20 @@ class InfoCard extends StatelessWidget {
         BoxConstraints(minWidth: size.width, minHeight: size.width),
         child: Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(15)),
+            borderRadius: const BorderRadius.all( Radius.circular(15)),
             color: colour,
           ),
           child: Column(
             children: [
               Text(
                 '$cardNumber',
-                style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
+                style: const TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   info!,
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
+                  style: const TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
                 ),
               )
             ],

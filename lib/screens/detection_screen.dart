@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:tourism_new/constants.dart';
@@ -8,7 +7,9 @@ import 'landmark_information_screen.dart';
 import 'package:tourism_new/widgets/error_message.dart' as error;
 import 'package:tourism_new/services/image_picker_service.dart';
 class DetectionScreen extends StatefulWidget {
-  static final String id = 'detection_screen';
+  static const String id = 'detection_screen';
+
+  const DetectionScreen({Key? key}) : super(key: key);
 
   @override
   _DetectionScreenState createState() => _DetectionScreenState();
@@ -52,20 +53,31 @@ class _DetectionScreenState extends State<DetectionScreen> {
     _image != null
         ? stackChildren.add(
       Container(
-          margin: EdgeInsets.only(top: 5),
+
+          width:size.width,
+          height: size.height * (5 / 7),
+          margin: const EdgeInsets.all(5),
+          
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(20)),
-            border: Border.all(width: 5, color: Colors.black),
+            boxShadow:[const BoxShadow(
+              offset: Offset(0,10),
+              blurRadius: 60,
+            )] ,
+            image: DecorationImage(
+              image:  FileImage(_image!),
+                  fit: BoxFit.fill
+            ),
+
+            color: Colors.black,
+             borderRadius: const BorderRadius.all(Radius.circular(5)),
+            // border: Border.all(width: 5, color: Colors.black),
           ),
-          child: Image.file(
-            _image!,
-            width: size.width,
-            height: size.height * (5 / 7),
-          )),
+
+        ),
     )
         : stackChildren.add(Center(
       child: Container(
-        child: Text('Select an Image'),
+        child: const Text('Select an Image'),
       ),
     ));
     if (_image != null) {
@@ -73,12 +85,21 @@ class _DetectionScreenState extends State<DetectionScreen> {
     }
     if (_busy) {
       stackChildren.add(
-        Center(
-          child: CircularProgressIndicator(),
+        const Center(
+          child:  CircularProgressIndicator(),
         ),
       );
     }
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Landmark Detection'),
+        backgroundColor: Colors.black,
+        elevation: 8,
+        shadowColor: Colors.black,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30)
+        ),
+      ),
       backgroundColor: kScaffoldColour,
       body: Container(
         child: Column(
@@ -91,19 +112,19 @@ class _DetectionScreenState extends State<DetectionScreen> {
             ),
             Expanded(
                 flex: 4,
-                child: _predictedLabel != null
+                child: (_predictedLabel != null&& _predictedLabel!='no_detection')
                     ? Column(
                   children: [
                     Container(
-                      padding: EdgeInsets.all(10),
-                      margin: EdgeInsets.symmetric(vertical: 10),
+                      padding: const EdgeInsets.all(10),
+                      margin: const EdgeInsets.symmetric(vertical: 10),
                       decoration: BoxDecoration(
                           border: Border.all(
                               color: kLightCoralColour, width: 2),
                           borderRadius: BorderRadius.circular(10)),
                       child: Text(
-                        _predictedLabel!.toUpperCase(),
-                        style: TextStyle(
+                        _predictedLabel!.toUpperCase().replaceAll(RegExp(r'_'),  ' '),
+                        style: const TextStyle(
                             color: Colors.black,
                             fontSize: 20,
                             fontWeight: FontWeight.w500),
@@ -135,37 +156,35 @@ class _DetectionScreenState extends State<DetectionScreen> {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           FloatingActionButton(
-            backgroundColor: Color(0xffB2EEE6),
+            backgroundColor: const Color(0xffB2EEE6),
             heroTag: 'floatButton1',
             onPressed: ()async{
               _image=await getImageFromGallery();
               if(_image!=null){
-                print(_image);
                 updateUI(_image!);
               }
 
             },
-            child: Icon(
+            child: const Icon(
               Icons.photo,
               color: Colors.black,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           FloatingActionButton(
-            backgroundColor: Color(0xff8AD6CC),
+            backgroundColor: const Color(0xff8AD6CC),
             heroTag: 'floatButton2',
             onPressed: ()
                   async{
                 _image=await getImageFromCamera();
                 if(_image!=null){
-                  print(_image);
                   updateUI(_image!);
                 }
               },
 
-            child: Icon(
+            child: const Icon(
               Icons.camera_alt,
               color: Colors.black,
             ),

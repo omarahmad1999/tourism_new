@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:tourism_new/constants.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
 
 class ProfileScreen extends StatefulWidget {
+  const ProfileScreen({Key? key}) : super(key: key);
+
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
@@ -20,16 +20,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
       appBar: AppBar(elevation: 0,backgroundColor:Colors.black,),
       body: Column(
         children: [
-          Container(
+          SizedBox(
             height: size.height*0.2,
             child: Stack(
               children: [
                 Container(
 
                   height: (size.height*0.2) -27,
-                  decoration: BoxDecoration(color: Colors.black,
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(36),
+                  decoration: const BoxDecoration(color: Colors.black,
+                  borderRadius:  BorderRadius.only(
+                    bottomLeft:  Radius.circular(36),
                     bottomRight: Radius.circular(36)
                   )
                   ),
@@ -50,24 +50,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           ),
             IconButton(onPressed: ()async{
-              var pickedFile = await _picker.getImage(source: ImageSource.gallery);
+              var pickedFile = await _picker.pickImage(source: ImageSource.gallery);
               if (pickedFile != null) {
                 setState(() {
                   _image = File(pickedFile.path);
-
-                  print('here broooo');
-                  print(_image);
                 });
               } else {
-                return null;
+
               }
-            }, icon: Icon(Icons.edit))
+            }, icon: const Icon(Icons.edit))
           ]
         ),),
-                Positioned
+                const Positioned
                   (left: 10,
                     bottom: 80,
-                    child: Text('Hi, Omar!',style: TextStyle(color: Colors.white,fontSize: 30),))
+                    child:  Text('Hi, Omar!',style:  TextStyle(color: Colors.white,fontSize: 30),))
 
 
               ],

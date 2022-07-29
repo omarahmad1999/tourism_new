@@ -18,7 +18,7 @@ const kDarkCoralColour = Color(0xffFF907C);
 const kLightCoralColour = Color(0xffFFC4B2);
 const kMediumCoralColour = Color(0xffFDAFA2);
 const kAppBarColour = Color(0xff66BEB2);
-const kScaffoldColour = Color(0xffFBF3EB);
+const kScaffoldColour = Colors.white;
 const kInfoCardsColors = [
   kLightCoralColour,
   kMediumCoralColour,

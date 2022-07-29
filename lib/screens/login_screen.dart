@@ -2,11 +2,10 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:tourism_new/constants.dart';
 import 'package:tourism_new/widgets/rounded_button.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:tourism_new/services/auth.dart';
 import 'package:tourism_new/widgets/input_text_field.dart';
 class LoginScreen extends StatefulWidget {
-  static final String id = 'login_screen';
+  static const String id = 'login_screen';
   final VoidCallback onClickedSignUp;
 
   const LoginScreen({
@@ -40,11 +39,11 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
           InputTextField(controller: emailController, hint: 'email'),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           InputTextField(controller: passwordController,hint: 'password'),
-          SizedBox(
+          const SizedBox(
             height: 8,
           ),
           RoundedButton(
@@ -54,13 +53,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 signIN(context,emailController.text.trim(),passwordController.text.trim());
                 }
               ),
-          SizedBox(
+          const SizedBox(
             height: 16,
           ),
-          RichText(text: TextSpan(style: TextStyle(color: Colors.black,fontSize: 16),
+          RichText(text: TextSpan(style: const TextStyle(color: Colors.black,fontSize: 16),
               text: 'No account?  ',
              children: [TextSpan(recognizer: TapGestureRecognizer()..onTap = widget.onClickedSignUp,
-    text: 'Sign up',style: TextStyle(fontWeight: FontWeight.bold,decoration: TextDecoration.underline))
+    text: 'Sign up',style: const TextStyle(fontWeight: FontWeight.bold,decoration: TextDecoration.underline))
     ])) ,
         ],
       ),

@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:tourism_new/constants.dart';
 import 'package:tourism_new/widgets/rounded_button.dart';
 import 'package:flutter/gestures.dart';
-import 'package:tourism_new/widgets/input_text_field.dart';
 import 'package:tourism_new/services/auth.dart';
 import 'package:email_validator/email_validator.dart';
 
 class RegistrationScreen extends StatefulWidget {
-  static final String id = 'registration_screen';
+  static const String id = 'registration_screen';
   final VoidCallback onClickedSignIn;
 
   const RegistrationScreen({
@@ -55,7 +54,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               (email)=> email==null ||!EmailValidator.validate(email)?'Enter a valid email':null
 
       ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               TextFormField(
@@ -69,7 +68,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   validator:
                       (value)=> value==null ||value.length<6?'Enter min 6 characters':null
               ),
-              SizedBox(
+              const SizedBox(
                 height: 8,
               ),
               RoundedButton(
@@ -79,13 +78,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     signUp(context,emailController.text.trim(),passwordController.text.trim(),_formKey);
                   }
                   ),
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
-              RichText(text: TextSpan(style: TextStyle(color: Colors.black,fontSize: 16),
+              RichText(text: TextSpan(style: const TextStyle(color: Colors.black,fontSize: 16),
                   text: 'Already have an account?  ',
                   children: [TextSpan(recognizer: TapGestureRecognizer()..onTap = widget.onClickedSignIn,
-                      text: 'Sign up',style: TextStyle(fontWeight: FontWeight.bold, decoration: TextDecoration.underline))
+                      text: 'Sign up',style: const TextStyle(fontWeight: FontWeight.bold, decoration: TextDecoration.underline))
                   ]))
             ],
           ),
