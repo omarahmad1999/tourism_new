@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tourism_new/screens/registration_screen.dart';
-import 'package:tourism_new/screens/app_base.dart';
-import 'package:tourism_new/screens/login_screen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:tourism_new/screens/app_base_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 Future<void> main() async {

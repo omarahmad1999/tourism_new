@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tourism_new/constants.dart';
-import 'package:tourism_new/widgets/rounded_button.dart';
+import 'package:tourism_new/widgets/rounded_button_widget.dart';
 import 'package:flutter/gestures.dart';
-import 'package:tourism_new/services/auth.dart';
+import 'package:tourism_new/services/auth_service.dart';
 import 'package:email_validator/email_validator.dart';
 
 class RegistrationScreen extends StatefulWidget {

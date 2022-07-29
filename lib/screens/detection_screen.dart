@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:tourism_new/constants.dart';
 import 'package:tourism_new/services/detection_service.dart';
-import 'package:tourism_new/widgets/rounded_button.dart';
+import 'package:tourism_new/widgets/rounded_button_widget.dart';
 import 'landmark_information_screen.dart';
-import 'package:tourism_new/widgets/error_message.dart' as error;
+import 'package:tourism_new/widgets/error_message_widget.dart' as error;
 import 'package:tourism_new/services/image_picker_service.dart';
 class DetectionScreen extends StatefulWidget {
   static const String id = 'detection_screen';

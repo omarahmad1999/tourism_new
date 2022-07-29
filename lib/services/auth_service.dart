@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:tourism_new/widgets/snack_bar.dart' ;
+import 'package:tourism_new/widgets/snack_bar_widge.dart';
 import 'package:flutter/material.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;

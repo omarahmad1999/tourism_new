@@ -1,9 +1,9 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:tourism_new/constants.dart';
-import 'package:tourism_new/widgets/rounded_button.dart';
-import 'package:tourism_new/services/auth.dart';
-import 'package:tourism_new/widgets/input_text_field.dart';
+import 'package:tourism_new/widgets/rounded_button_widget.dart';
+import 'package:tourism_new/services/auth_service.dart';
+import 'package:tourism_new/widgets/input_text_field_widget.dart';
 class LoginScreen extends StatefulWidget {
   static const String id = 'login_screen';
   final VoidCallback onClickedSignUp;
